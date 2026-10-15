@@ -22,6 +22,17 @@ let fazendas = [];
 let geojsons = {};
 let selecionada = null;
 let mostrarPreenchimento = true;
+let mostrarSigef = false;
+let mostrarDivergencias = true;
+let sigef = null;
+let divergencias = null;
+
+// Divergências entre o CAR (SICAR) e o perímetro certificado (SIGEF/INCRA)
+const DIVERGENCIA = {
+    sobreposicao:  { cor: '#ff1744', rotulo: 'CAR sobre imóvel vizinho certificado' },
+    car_fora:      { cor: '#ff9100', rotulo: 'CAR fora do perímetro certificado' },
+    sigef_sem_car: { cor: '#d500f9', rotulo: 'Área certificada sem CAR' }
+};
 
 // Imagem de satélite mais recente disponível: Esri World Imagery (Vantor/Maxar)
 const ESTILO_ESRI = {
@@ -112,8 +123,9 @@ function renderFazendas() {
             const docs = (a.documentos || []).map(d =>
                 `<button type="button" class="doc-btn" data-arquivo="${esc(d.arquivo)}" data-titulo="${esc(d.titulo)}">📄 ${esc(d.titulo)}</button>`).join('');
             const extra = (nota || docs) ? `<span class="item-extra">${nota}${docs ? `<span class="doc-list">${docs}</span>` : ''}</span>` : '';
+            const prio = a.prioridade ? ` <span class="prio">Prioridade ${esc(a.prioridade.toLowerCase())}</span>` : '';
             return `<li><span class="status-dot" style="background:${st.cor}"></span>
-                        <span class="item-text">${esc(a.item)}</span>
+                        <span class="item-text">${esc(a.item)}${prio}</span>
                         <span class="status-tag ${st.classe}">${esc(a.status)}${quando}</span>${extra}</li>`;
         }).join('');
         return `
@@ -127,8 +139,13 @@ function renderFazendas() {
             <div class="farm-body">
                 <dl>
                     <dt>CAR</dt><dd class="mono">${esc(f.car)}</dd>
-                    <dt>Área declarada</dt><dd>${fmt(f.area_ha, 2)} ha</dd>
+                    ${f.sicar ? `<dt>Situação no SICAR</dt><dd>${esc(f.sicar.condicao)}</dd>
+                    <dt>Última retificação</dt><dd>${esc(f.sicar.ultima_retificacao)}</dd>
+                    <dt>Área no CAR</dt><dd>${fmt(f.sicar.area_ha, 2)} ha</dd>` : `<dt>Área declarada</dt><dd>${fmt(f.area_ha, 2)} ha</dd>`}
+                    ${f.sigef ? `<dt>Área certificada (SIGEF)</dt><dd>${fmt(f.sigef.area_ha, 2)} ha · matr. ${esc(f.sigef.matriculas)}</dd>
+                    <dt>Situação no SIGEF</dt><dd>${esc(f.sigef.situacao)}</dd>` : ''}
                 </dl>
+                ${divergenciasHtml(f.id)}
                 <h3>Adequações (${f.adequacoes.length})</h3>
                 <ul class="adeq-list">${itens}</ul>
                 <a class="link" href="https://www.registrorural.com.br/car/item/${encodeURIComponent(f.car)}" target="_blank" rel="noopener">Consultar o CAR no Registro Rural ↗</a>
@@ -145,6 +162,18 @@ function renderFazendas() {
             selecionarFazenda(selecionada === id ? null : id, true);
         });
     });
+}
+
+// Resumo das divergências CAR × SIGEF de uma fazenda
+function divergenciasHtml(id) {
+    if (!divergencias) return '';
+    const soma = {};
+    divergencias.features.filter(x => x.properties.fazenda === id)
+        .forEach(x => { soma[x.properties.tipo] = (soma[x.properties.tipo] || 0) + x.properties.area_ha; });
+    const linhas = Object.keys(DIVERGENCIA).filter(t => soma[t] >= 0.05)
+        .map(t => `<li><i style="background:${DIVERGENCIA[t].cor}"></i>${DIVERGENCIA[t].rotulo}: <strong>${fmt(soma[t], 2)} ha</strong></li>`);
+    if (!linhas.length) return '';
+    return `<div class="diverg"><h3>Divergências CAR × SIGEF</h3><ul>${linhas.join('')}</ul></div>`;
 }
 
 // ---------- visualizador de documentos ----------
@@ -187,6 +216,30 @@ function adicionarCamadas() {
             paint: { 'line-color': f.cor, 'line-width': 2.5 }
         });
     });
+    // Perímetros certificados no SIGEF/INCRA
+    if (sigef && !map.getSource('sigef')) {
+        map.addSource('sigef', { type: 'geojson', data: sigef });
+        map.addLayer({
+            id: 'sigef-line', type: 'line', source: 'sigef',
+            layout: { visibility: mostrarSigef ? 'visible' : 'none' },
+            paint: { 'line-color': '#ffffff', 'line-width': 2, 'line-dasharray': [2, 1.5] }
+        });
+    }
+    // Divergências CAR × SIGEF
+    if (divergencias && !map.getSource('divergencias')) {
+        map.addSource('divergencias', { type: 'geojson', data: divergencias });
+        const cor = ['match', ['get', 'tipo'], ...Object.entries(DIVERGENCIA).flatMap(([k, v]) => [k, v.cor]), '#ffffff'];
+        map.addLayer({
+            id: 'divergencias-fill', type: 'fill', source: 'divergencias',
+            layout: { visibility: mostrarDivergencias ? 'visible' : 'none' },
+            paint: { 'fill-color': cor, 'fill-opacity': 0.55 }
+        });
+        map.addLayer({
+            id: 'divergencias-line', type: 'line', source: 'divergencias',
+            layout: { visibility: mostrarDivergencias ? 'visible' : 'none' },
+            paint: { 'line-color': cor, 'line-width': 1.5 }
+        });
+    }
     // Rótulos com o nome das fazendas
     if (!map.getSource('rotulos')) try {
         map.addSource('rotulos', {
@@ -255,6 +308,19 @@ function popupHtml(f) {
 }
 
 map.on('click', (e) => {
+    if (map.getLayer('divergencias-fill') && mostrarDivergencias) {
+        const d = map.queryRenderedFeatures(e.point, { layers: ['divergencias-fill'] });
+        if (d.length) {
+            const p = d[0].properties;
+            const f = fazendas.find(x => x.id === p.fazenda);
+            new mapboxgl.Popup({ maxWidth: '300px' }).setLngLat(e.lngLat).setHTML(`<div class="popup">
+                <h3><span class="swatch" style="background:${DIVERGENCIA[p.tipo].cor}"></span>${esc(DIVERGENCIA[p.tipo].rotulo)}</h3>
+                <p>${esc(p.descricao)}</p>
+                <p><strong>Área:</strong> ${fmt(p.area_ha, 2)} ha · ${esc(f ? f.nome : '')}</p>
+                <p class="popup-hint">Cruzamento SICAR × SIGEF de ${esc(consultaBases)}.</p></div>`).addTo(map);
+            return;
+        }
+    }
     const camadas = fazendas.map(f => `${f.id}-fill`).filter(id => map.getLayer(id));
     const hits = camadas.length ? map.queryRenderedFeatures(e.point, { layers: camadas }) : [];
     // Com o preenchimento oculto, ainda permite clicar dentro do perímetro
@@ -272,6 +338,7 @@ map.on('click', (e) => {
 
 map.on('mousemove', (e) => {
     const camadas = fazendas.map(f => `${f.id}-fill`).filter(id => map.getLayer(id));
+    if (map.getLayer('divergencias-fill') && mostrarDivergencias) camadas.push('divergencias-fill');
     const over = camadas.length && map.queryRenderedFeatures(e.point, { layers: camadas }).length > 0;
     map.getCanvas().style.cursor = over ? 'pointer' : '';
 });
@@ -292,6 +359,15 @@ document.getElementById('toggleFill').addEventListener('change', (e) => {
         if (map.getLayer(`${f.id}-fill`)) map.setLayoutProperty(`${f.id}-fill`, 'visibility', mostrarPreenchimento ? 'visible' : 'none');
     });
 });
+function alternar(ids, visivel) {
+    ids.forEach(id => { if (map.getLayer(id)) map.setLayoutProperty(id, 'visibility', visivel ? 'visible' : 'none'); });
+}
+document.getElementById('toggleSigef').addEventListener('change', (e) => {
+    mostrarSigef = e.target.checked; alternar(['sigef-line'], mostrarSigef);
+});
+document.getElementById('toggleDiverg').addEventListener('change', (e) => {
+    mostrarDivergencias = e.target.checked; alternar(['divergencias-fill', 'divergencias-line'], mostrarDivergencias);
+});
 document.getElementById('centerMap').addEventListener('click', () => { selecionarFazenda(null, false); enquadrarTodas(); });
 
 const toggle = document.getElementById('panelToggle');
@@ -302,6 +378,11 @@ toggle.addEventListener('click', () => {
 });
 
 // ---------- carregamento ----------
+let consultaBases = '';
+async function carregarJson(url) {
+    try { const r = await fetch(url, { cache: 'no-cache' }); return r.ok ? await r.json() : null; }
+    catch (err) { console.warn(`Não foi possível carregar ${url}`, err); return null; }
+}
 async function iniciar() {
     const resp = await fetch('data/fazendas.json', { cache: 'no-cache' });
     const dados = await resp.json();
@@ -310,6 +391,14 @@ async function iniciar() {
         const [a, m, d] = dados.atualizado_em.split('-');
         document.getElementById('updatedAt').textContent = `${d}/${m}/${a}`;
     }
+    if (dados.consulta_bases) {
+        consultaBases = dados.consulta_bases.data;
+        document.getElementById('consultaBases').textContent = `Situação do CAR e do SIGEF consultada em ${consultaBases} nas bases públicas do SICAR e do INCRA.`;
+    }
+    [sigef, divergencias] = await Promise.all([carregarJson('data/sigef_luongo.geojson'), carregarJson('data/divergencias.geojson')]);
+    document.getElementById('legendaDiverg').innerHTML = Object.values(DIVERGENCIA)
+        .map(v => `<span class="chip"><i style="background:${v.cor}"></i>${v.rotulo}</span>`).join('')
+        + '<span class="chip"><i class="dash"></i>Perímetro certificado (SIGEF)</span>';
     await Promise.all(fazendas.map(async f => {
         try {
             const r = await fetch(f.arquivo, { cache: 'no-cache' });

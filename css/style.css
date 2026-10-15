@@ -141,7 +141,7 @@ body.panel-closed .sidebar { display: none; }
     font-size: .8rem;
 }
 .farm-body dt { color: var(--texto-suave); }
-.farm-body dd { margin: 0; word-break: break-all; }
+.farm-body dd { margin: 0; overflow-wrap: anywhere; }
 .farm-body h3 { font-size: .85rem; margin: 0 0 6px; }
 .mono { font-family: ui-monospace, Consolas, monospace; font-size: .74rem; }
 
@@ -268,3 +268,25 @@ body.panel-closed .sidebar { display: none; }
 .btn-solid { background: var(--verde) !important; color: #fff !important; }
 .item-extra { flex-basis: 100%; padding-left: 17px; }
 .item-extra .item-note { margin-top: 0; }
+
+/* ---------- prioridade e divergências CAR × SIGEF ---------- */
+.prio {
+    display: inline-block;
+    margin-left: 4px;
+    font-size: .66rem;
+    font-weight: 600;
+    padding: 1px 6px;
+    border-radius: 999px;
+    background: #fde7e9;
+    color: #a31525;
+    white-space: nowrap;
+}
+.diverg { margin: 0 0 10px; padding: 8px 10px; border-radius: 8px; background: #fff7ec; border: 1px solid #f6dfbf; }
+.diverg h3 { margin: 0 0 4px; }
+.diverg ul { list-style: none; margin: 0; padding: 0; font-size: .78rem; }
+.diverg li { display: flex; align-items: center; gap: 6px; padding: 2px 0; }
+.diverg li i { width: 10px; height: 10px; border-radius: 2px; flex: 0 0 10px; }
+#legendaDiverg { flex-direction: column; align-items: flex-start; gap: 4px; }
+#legendaDiverg .chip i { border-radius: 2px; }
+#legendaDiverg .chip i.dash { background: none; border-top: 2px dashed #5d6b62; height: 0; width: 14px; border-radius: 0; }
+#consultaBases:empty { display: none; }

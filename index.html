@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agropecuária Luongo – Mapa Interativo das Fazendas</title>
     <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css">
-    <link rel="stylesheet" href="css/style.css?v=202610151017">
+    <link rel="stylesheet" href="css/style.css?v=202610151500">
 </head>
 <body>
     <header class="topbar">
@@ -49,10 +49,14 @@
                         <button type="button" data-style="mapa">Mapa</button>
                     </div>
                     <label class="switch"><input type="checkbox" id="toggleFill" checked> Preenchimento das fazendas</label>
+                    <label class="switch"><input type="checkbox" id="toggleDiverg" checked> Divergências CAR × SIGEF</label>
+                    <label class="switch"><input type="checkbox" id="toggleSigef"> Perímetros certificados (SIGEF)</label>
+                    <div class="status-legend" id="legendaDiverg"></div>
                     <button type="button" class="btn" id="centerMap">Ver todas as fazendas</button>
                 </div>
             </section>
 
+            <p class="footnote" id="consultaBases"></p>
             <p class="footnote">Atualizado em <span id="updatedAt"></span> · CS Consultoria Ambiental</p>
         </aside>
 
@@ -75,6 +79,6 @@
 
     <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@turf/turf@6/turf.min.js"></script>
-    <script src="js/app.js?v=202610151017"></script>
+    <script src="js/app.js?v=202610151500"></script>
 </body>
 </html>
