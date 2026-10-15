@@ -23,9 +23,30 @@ let geojsons = {};
 let selecionada = null;
 let mostrarPreenchimento = true;
 
+// Imagem de satélite mais recente disponível: Esri World Imagery (Vantor/Maxar)
+const ESTILO_ESRI = {
+    version: 8,
+    glyphs: 'mapbox://fonts/mapbox/{fontstack}/{range}.pbf',
+    sources: {
+        esri: {
+            type: 'raster',
+            tiles: ['https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'],
+            tileSize: 256,
+            maxzoom: 19,
+            attribution: 'Imagens © Esri, Vantor, Maxar, Earthstar Geographics'
+        }
+    },
+    layers: [{ id: 'esri', type: 'raster', source: 'esri' }]
+};
+const ESTILOS = {
+    esri: ESTILO_ESRI,
+    mapbox: 'mapbox://styles/mapbox/satellite-streets-v12',
+    mapa: 'mapbox://styles/mapbox/outdoors-v12'
+};
+
 const map = new mapboxgl.Map({
     container: 'map',
-    style: 'mapbox://styles/mapbox/satellite-streets-v12',
+    style: ESTILO_ESRI,
     center: [-49.955, -21.75],
     zoom: 11,
     preserveDrawingBuffer: true
@@ -181,7 +202,7 @@ function adicionarCamadas() {
         });
         map.addLayer({
             id: 'rotulos', type: 'symbol', source: 'rotulos',
-            layout: { 'text-field': ['get', 'nome'], 'text-size': 13, 'text-font': ['DIN Pro Bold', 'Arial Unicode MS Bold'], 'text-max-width': 10 },
+            layout: { 'text-field': ['get', 'nome'], 'text-size': 13, 'text-font': ['Open Sans Bold', 'Arial Unicode MS Bold'], 'text-max-width': 10 },
             paint: { 'text-color': '#ffffff', 'text-halo-color': '#000000', 'text-halo-width': 1.5 }
         });
     } catch (err) {
@@ -262,7 +283,7 @@ map.on('style.load', () => { if (fazendas.length) adicionarCamadas(); });
 document.querySelectorAll('.segmented button').forEach(btn => {
     btn.addEventListener('click', () => {
         document.querySelectorAll('.segmented button').forEach(b => b.classList.toggle('active', b === btn));
-        map.setStyle(btn.dataset.style);
+        map.setStyle(ESTILOS[btn.dataset.style] || btn.dataset.style);
     });
 });
 document.getElementById('toggleFill').addEventListener('change', (e) => {
