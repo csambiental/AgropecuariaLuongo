@@ -1,0 +1,161 @@
+{
+  "atualizado_em": "2026-10-14",
+  "fazendas": [
+    {
+      "id": "SANTOANTONIO",
+      "arquivo": "data/santoantonio.geojson",
+      "nome": "Fazenda Santo Antonio",
+      "car": "SP-3517000-45493BE7D85546E6B71AEB24AC346180",
+      "area_ha": 421.258,
+      "cor": "#ff6b4a",
+      "adequacoes": [
+        {
+          "item": "Análise do percentual de Reserva Legal",
+          "status": "Pendente"
+        },
+        {
+          "item": "Retificação do CAR",
+          "status": "Pendente"
+        },
+        {
+          "item": "Recuperação da Integridade de Nascente",
+          "status": "Pendente"
+        },
+        {
+          "item": "PRAD para recuperação da APPs",
+          "status": "Pendente"
+        }
+      ]
+    },
+    {
+      "id": "FATIMA",
+      "arquivo": "data/fatima.geojson",
+      "nome": "Fazenda Nossa Senhora de Fátima",
+      "car": "SP-3517000-D3FCA67A86B64ABF8C26B8792C98F328",
+      "area_ha": 628.064,
+      "cor": "#4fc3f7",
+      "adequacoes": [
+        {
+          "item": "Análise do percentual de Reserva Legal",
+          "status": "Pendente"
+        },
+        {
+          "item": "Retificação do CAR",
+          "status": "Pendente"
+        },
+        {
+          "item": "Recuperação da Integridade de Nascente",
+          "status": "Pendente"
+        },
+        {
+          "item": "PRAD para recuperação da APPs",
+          "status": "Pendente"
+        }
+      ]
+    },
+    {
+      "id": "MANGALARGA",
+      "arquivo": "data/mangalarga.geojson",
+      "nome": "Fazenda Manga Larga",
+      "car": "SP-3517000-29631DD957FF4D3389D0CD81EA058254",
+      "area_ha": 941.976,
+      "cor": "#ba68c8",
+      "adequacoes": [
+        {
+          "item": "Análise do percentual de Reserva Legal",
+          "status": "Pendente"
+        },
+        {
+          "item": "Retificação do CAR",
+          "status": "Pendente"
+        }
+      ]
+    },
+    {
+      "id": "AGUAFRIA",
+      "arquivo": "data/aguafria.geojson",
+      "nome": "Fazenda Água Fria",
+      "car": "SP-3517000-AB8AC036FD85428EBC52557C6D9FADDF",
+      "area_ha": 378.462,
+      "cor": "#ffd54f",
+      "adequacoes": [
+        {
+          "item": "Análise do percentual de Reserva Legal",
+          "status": "Pendente"
+        },
+        {
+          "item": "Retificação do CAR",
+          "status": "Pendente"
+        }
+      ]
+    },
+    {
+      "id": "CONTINENTAL",
+      "arquivo": "data/continental.geojson",
+      "nome": "Fazenda Continental",
+      "car": "SP-3517000-7B04DCCFD219427D964FA77BC8A93A89",
+      "area_ha": 1817.186,
+      "cor": "#81c784",
+      "adequacoes": [
+        {
+          "item": "Análise do percentual de Reserva Legal",
+          "status": "Pendente"
+        },
+        {
+          "item": "Análise de Sobreposições Espaciais",
+          "status": "Pendente"
+        },
+        {
+          "item": "Retificação do CAR",
+          "status": "Pendente"
+        },
+        {
+          "item": "Análise e Recuperação de nascentes",
+          "status": "Pendente"
+        },
+        {
+          "item": "Elaboração e implementação de PRAD para a recuperação de APPs e Recuperação da Nascente",
+          "status": "Pendente"
+        },
+        {
+          "item": "Elaboração do PGRS e Implementação de um local de armazenamento temporário de Resíduos",
+          "status": "Pendente"
+        },
+        {
+          "item": "Análise e Tratamento do Esterco Animal para a fertilização do solo",
+          "status": "Pendente"
+        },
+        {
+          "item": "Emitir Licenças Ambientais para a Criação de Animais e do Tanque de Combustível",
+          "status": "Pendente"
+        }
+      ]
+    },
+    {
+      "id": "SALETE",
+      "arquivo": "data/salete.geojson",
+      "nome": "Fazenda Nossa Senhora da Salete",
+      "car": "SP-3517000-1F9D36DDC42A416F9F8C91C493B568AD",
+      "area_ha": 322.34,
+      "cor": "#f06292",
+      "adequacoes": [
+        {
+          "item": "Análise do percentual de Reserva Legal",
+          "status": "Pendente"
+        },
+        {
+          "item": "Retificação do CAR",
+          "status": "Pendente"
+        },
+        {
+          "item": "Recuperação da Integridade de Nascente",
+          "status": "Pendente"
+        },
+        {
+          "item": "PRAD para recuperação da APPs",
+          "status": "Pendente"
+        }
+      ]
+    }
+  ]
+}
