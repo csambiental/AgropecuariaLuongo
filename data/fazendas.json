@@ -15,7 +15,8 @@
         },
         {
           "item": "Retificação do CAR",
-          "status": "Pendente"
+          "status": "Em andamento",
+          "nota": "Retificação recebida pelo SICAR em 24/04/2026; aguardando análise do órgão. O perímetro do CAR já coincide com o certificado no SIGEF."
         },
         {
           "item": "Recuperação da Integridade de Nascente",
@@ -56,7 +57,17 @@
             }
           ]
         }
-      ]
+      ],
+      "sicar": {
+        "condicao": "Aguardando análise, após revisão ou atendimento da notificação",
+        "ultima_retificacao": "24/04/2026",
+        "area_ha": 421.01
+      },
+      "sigef": {
+        "matriculas": "8.444 e 8.445",
+        "area_ha": 420.21,
+        "situacao": "Registrada"
+      }
     },
     {
       "id": "FATIMA",
@@ -66,6 +77,12 @@
       "area_ha": 628.064,
       "cor": "#4fc3f7",
       "adequacoes": [
+        {
+          "item": "Atender notificação do CAR no SICAR",
+          "status": "Pendente",
+          "prioridade": "Alta",
+          "nota": "O órgão analisou o CAR e emitiu notificação. O prazo de resposta deve ser conferido na área do proprietário no SICAR; sem resposta, o CAR pode ser suspenso."
+        },
         {
           "item": "Análise do percentual de Reserva Legal",
           "status": "Pendente"
@@ -82,7 +99,17 @@
           "item": "PRAD para recuperação da APPs",
           "status": "Pendente"
         }
-      ]
+      ],
+      "sicar": {
+        "condicao": "Analisado, aguardando atendimento a notificação",
+        "ultima_retificacao": "19/10/2024",
+        "area_ha": 627.74
+      },
+      "sigef": {
+        "matriculas": "8.349",
+        "area_ha": 628.97,
+        "situacao": "Registrada"
+      }
     },
     {
       "id": "MANGALARGA",
@@ -93,14 +120,36 @@
       "cor": "#ba68c8",
       "adequacoes": [
         {
+          "item": "Atender notificação do CAR no SICAR",
+          "status": "Pendente",
+          "prioridade": "Alta",
+          "nota": "O órgão analisou o CAR e emitiu notificação. O prazo de resposta deve ser conferido na área do proprietário no SICAR; sem resposta, o CAR pode ser suspenso."
+        },
+        {
           "item": "Análise do percentual de Reserva Legal",
           "status": "Pendente"
         },
         {
           "item": "Retificação do CAR",
           "status": "Pendente"
+        },
+        {
+          "item": "Ajustar divisas do CAR com imóveis vizinhos certificados",
+          "status": "Pendente",
+          "prioridade": "Alta",
+          "nota": "O CAR avança 2,87 ha sobre imóveis vizinhos certificados no SIGEF (Faz. São Francisco e Faz. Santo Antonio). Cerca de 2 ha da Reserva Legal proposta estão nessas áreas, o que afeta o excedente de Reserva Legal."
         }
-      ]
+      ],
+      "sicar": {
+        "condicao": "Analisado, aguardando atendimento a notificação",
+        "ultima_retificacao": "29/01/2025",
+        "area_ha": 946.51
+      },
+      "sigef": {
+        "matriculas": "8.399 e 8.400",
+        "area_ha": 939.95,
+        "situacao": "Registrada"
+      }
     },
     {
       "id": "AGUAFRIA",
@@ -111,12 +160,19 @@
       "cor": "#ffd54f",
       "adequacoes": [
         {
+          "item": "Atender notificação do CAR no SICAR",
+          "status": "Pendente",
+          "prioridade": "Alta",
+          "nota": "O órgão analisou o CAR e emitiu notificação após a retificação de jul/2026. O prazo de resposta deve ser conferido na área do proprietário no SICAR; sem resposta, o CAR pode ser suspenso."
+        },
+        {
           "item": "Análise do percentual de Reserva Legal",
           "status": "Pendente"
         },
         {
           "item": "Retificação do CAR",
-          "status": "Pendente"
+          "status": "Em andamento",
+          "nota": "Retificação recebida pelo SICAR em 03/07/2026. O órgão analisou e emitiu notificação, que precisa ser atendida."
         },
         {
           "item": "PRAD para recuperação das APPs e surgências hídricas",
@@ -145,7 +201,17 @@
             }
           ]
         }
-      ]
+      ],
+      "sicar": {
+        "condicao": "Analisado, aguardando atendimento a notificação",
+        "ultima_retificacao": "03/07/2026",
+        "area_ha": 378.29
+      },
+      "sigef": {
+        "matriculas": "8.413",
+        "area_ha": 378.68,
+        "situacao": "Registrada"
+      }
     },
     {
       "id": "CONTINENTAL",
@@ -156,16 +222,24 @@
       "cor": "#81c784",
       "adequacoes": [
         {
+          "item": "Definir o CAR da Gleba 02 (217,85 ha certificados sem CAR)",
+          "status": "Pendente",
+          "prioridade": "Alta",
+          "nota": "Após a retificação de jul/2026, a Gleba 02 certificada no SIGEF ficou sem cobertura de CAR ativo. É preciso definir se ela terá CAR próprio ou se volta ao CAR da fazenda."
+        },
+        {
           "item": "Análise do percentual de Reserva Legal",
           "status": "Pendente"
         },
         {
           "item": "Análise de Sobreposições Espaciais",
-          "status": "Pendente"
+          "status": "Em andamento",
+          "nota": "Cruzamento com o SIGEF e o SICAR feito em 14/10/2026. A sobreposição com CARs vizinhos vinha de cadastros já cancelados pelo órgão; restam ajustes menores que 0,1 ha."
         },
         {
           "item": "Retificação do CAR",
-          "status": "Pendente"
+          "status": "Em andamento",
+          "nota": "CAR retificado em 21/07/2026 (1.597,65 ha); aguardando análise do órgão. Passou a cobrir apenas a Gleba 01."
         },
         {
           "item": "Análise e Recuperação de nascentes",
@@ -187,7 +261,17 @@
           "item": "Emitir Licenças Ambientais para a Criação de Animais e do Tanque de Combustível",
           "status": "Pendente"
         }
-      ]
+      ],
+      "sicar": {
+        "condicao": "Aguardando análise",
+        "ultima_retificacao": "21/07/2026",
+        "area_ha": 1597.65
+      },
+      "sigef": {
+        "matriculas": "8.358 (Glebas 01 e 02)",
+        "area_ha": 1817.15,
+        "situacao": "Certificada em 10/09/2025, aguardando registro em cartório"
+      }
     },
     {
       "id": "SALETE",
@@ -197,6 +281,12 @@
       "area_ha": 322.34,
       "cor": "#f06292",
       "adequacoes": [
+        {
+          "item": "Ajustar a área do CAR às matrículas",
+          "status": "Pendente",
+          "prioridade": "Alta",
+          "nota": "O CAR declara 336,35 ha e as matrículas 8.428 e 8.429 somam 317,66 ha. Uma faixa de cerca de 20 ha entre as glebas está fora do perímetro certificado. O CAR já foi analisado e aguarda regularização ambiental."
+        },
         {
           "item": "Análise do percentual de Reserva Legal",
           "status": "Pendente"
@@ -213,7 +303,24 @@
           "item": "PRAD para recuperação da APPs",
           "status": "Pendente"
         }
-      ]
+      ],
+      "sicar": {
+        "condicao": "Analisado, aguardando regularização ambiental (Lei nº 12.651/2012)",
+        "ultima_retificacao": "22/10/2024",
+        "area_ha": 336.35
+      },
+      "sigef": {
+        "matriculas": "8.428 e 8.429",
+        "area_ha": 317.46,
+        "situacao": "Registrada"
+      }
     }
-  ]
+  ],
+  "consulta_bases": {
+    "data": "14/10/2026",
+    "fontes": [
+      "SICAR – base pública de imóveis (SP)",
+      "INCRA – SIGEF, imóveis certificados (SP)"
+    ]
+  }
 }
