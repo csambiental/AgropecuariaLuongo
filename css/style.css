@@ -148,6 +148,7 @@ body.panel-closed .sidebar { display: none; }
 .adeq-list { list-style: none; margin: 0 0 10px; padding: 0; }
 .adeq-list li {
     display: flex;
+    flex-wrap: wrap;
     align-items: flex-start;
     gap: 8px;
     padding: 6px 0;
@@ -214,3 +215,56 @@ body.panel-closed .sidebar { display: none; }
     .map-wrap { height: 65vh; flex: none; order: -1; }
     body.panel-closed .map-wrap { height: calc(100vh - 70px); }
 }
+
+/* ---------- notas e documentos das adequações ---------- */
+.item-note { display: block; margin-top: 3px; font-size: .75rem; color: var(--texto-suave); }
+.doc-list { display: flex; flex-direction: column; gap: 4px; margin-top: 6px; }
+.doc-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    width: fit-content;
+    max-width: 100%;
+    border: 1px solid var(--verde);
+    background: #f1f8f3;
+    color: var(--verde-escuro);
+    border-radius: 6px;
+    padding: 3px 8px;
+    font: inherit;
+    font-size: .74rem;
+    text-align: left;
+    cursor: pointer;
+}
+.doc-btn:hover { background: var(--verde); color: #fff; }
+.popup .doc-btn { margin-top: 6px; }
+
+/* ---------- visualizador de PDF ---------- */
+.doc-dialog {
+    width: min(1000px, 96vw);
+    height: min(92vh, 1100px);
+    padding: 0;
+    border: 0;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, .35);
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+}
+.doc-dialog[open] { display: flex; }
+.doc-dialog::backdrop { background: rgba(10, 20, 14, .55); }
+.doc-dialog header, .doc-dialog footer {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    background: var(--painel);
+}
+.doc-dialog header { border-bottom: 1px solid var(--borda); }
+.doc-dialog footer { border-top: 1px solid var(--borda); justify-content: flex-end; }
+.doc-dialog h2 { flex: 1; margin: 0; font-size: 1rem; color: var(--verde-escuro); }
+.doc-dialog .close { border: 0; background: none; font-size: 1.6rem; line-height: 1; cursor: pointer; color: var(--texto-suave); }
+.doc-dialog iframe { flex: 1; width: 100%; border: 0; background: #525659; }
+.doc-dialog .btn { text-decoration: none; padding: 7px 12px; }
+.btn-solid { background: var(--verde) !important; color: #fff !important; }
+.item-extra { flex-basis: 100%; padding-left: 17px; }
+.item-extra .item-note { margin-top: 0; }

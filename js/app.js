@@ -86,9 +86,14 @@ function renderFazendas() {
         const aberta = selecionada === f.id;
         const itens = f.adequacoes.map(a => {
             const st = STATUS[a.status] || STATUS['Pendente'];
+            const quando = a.concluida_em ? ` · ${esc(a.concluida_em)}` : '';
+            const nota = a.nota ? `<span class="item-note">${esc(a.nota)}</span>` : '';
+            const docs = (a.documentos || []).map(d =>
+                `<button type="button" class="doc-btn" data-arquivo="${esc(d.arquivo)}" data-titulo="${esc(d.titulo)}">📄 ${esc(d.titulo)}</button>`).join('');
+            const extra = (nota || docs) ? `<span class="item-extra">${nota}${docs ? `<span class="doc-list">${docs}</span>` : ''}</span>` : '';
             return `<li><span class="status-dot" style="background:${st.cor}"></span>
                         <span class="item-text">${esc(a.item)}</span>
-                        <span class="status-tag ${st.classe}">${esc(a.status)}</span></li>`;
+                        <span class="status-tag ${st.classe}">${esc(a.status)}${quando}</span>${extra}</li>`;
         }).join('');
         return `
         <article class="farm ${aberta ? 'open' : ''}" data-id="${f.id}">
@@ -110,12 +115,35 @@ function renderFazendas() {
         </article>`;
     }).join('');
 
+    el.querySelectorAll('.doc-btn').forEach(btn => {
+        btn.addEventListener('click', () => abrirDocumento(btn.dataset.titulo, btn.dataset.arquivo));
+    });
     el.querySelectorAll('.farm-head').forEach(btn => {
         btn.addEventListener('click', () => {
             const id = btn.closest('.farm').dataset.id;
             selecionarFazenda(selecionada === id ? null : id, true);
         });
     });
+}
+
+// ---------- visualizador de documentos ----------
+const docDialog = document.getElementById('docDialog');
+function abrirDocumento(titulo, arquivo) {
+    document.getElementById('docTitle').textContent = titulo;
+    document.getElementById('docFrame').src = arquivo;
+    document.getElementById('docOpen').href = arquivo;
+    document.getElementById('docDownload').href = arquivo;
+    docDialog.showModal();
+}
+document.getElementById('docClose').addEventListener('click', () => docDialog.close());
+docDialog.addEventListener('click', (e) => { if (e.target === docDialog) docDialog.close(); });
+docDialog.addEventListener('close', () => { document.getElementById('docFrame').src = 'about:blank'; });
+
+// Documentos de uma fazenda (sem repetir)
+function documentosDa(f) {
+    const vistos = new Map();
+    f.adequacoes.forEach(a => (a.documentos || []).forEach(d => vistos.set(d.arquivo, d)));
+    return [...vistos.values()];
 }
 
 // ---------- mapa ----------
@@ -200,6 +228,7 @@ function popupHtml(f) {
         <p><strong>Adequações:</strong> ${f.adequacoes.length}
            (${cont['Concluída']} concluídas, ${cont['Em andamento']} em andamento, ${cont['Pendente']} pendentes)</p>
         <div class="mini-progress">${barraProgresso(cont, f.adequacoes.length)}</div>
+        ${documentosDa(f).map(d => `<button type="button" class="doc-btn" onclick="abrirDocumento('${esc(d.titulo)}', '${esc(d.arquivo)}')">📄 ${esc(d.titulo)}</button>`).join('')}
         <p class="popup-hint">Veja a lista completa no painel ao lado.</p>
     </div>`;
 }

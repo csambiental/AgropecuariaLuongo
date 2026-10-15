@@ -1,5 +1,5 @@
 {
-  "atualizado_em": "2026-10-14",
+  "atualizado_em": "2026-10-15",
   "fazendas": [
     {
       "id": "SANTOANTONIO",
@@ -19,11 +19,31 @@
         },
         {
           "item": "Recuperação da Integridade de Nascente",
-          "status": "Pendente"
+          "status": "Concluída",
+          "concluida_em": "02/2026",
+          "nota": "Avaliada no PRAD: 2 pontos vistoriados, não identificada presença de nascentes.",
+          "documentos": [
+            {
+              "titulo": "PRAD – Fazenda Santo Antônio",
+              "arquivo": "docs/prad_fazenda_santo_antonio.pdf"
+            }
+          ]
         },
         {
           "item": "PRAD para recuperação da APPs",
-          "status": "Pendente"
+          "status": "Concluída",
+          "concluida_em": "02/2026",
+          "nota": "PRAD Simplificado elaborado: recuperação da APP por regeneração natural com manejo e plantio pontual, se necessário.",
+          "documentos": [
+            {
+              "titulo": "PRAD – Fazenda Santo Antônio",
+              "arquivo": "docs/prad_fazenda_santo_antonio.pdf"
+            },
+            {
+              "titulo": "Apresentação do PRAD (Santo Antônio e Água Fria)",
+              "arquivo": "docs/apresentacao_prad_santo_antonio_agua_fria.pdf"
+            }
+          ]
         }
       ]
     },
@@ -86,6 +106,22 @@
         {
           "item": "Retificação do CAR",
           "status": "Pendente"
+        },
+        {
+          "item": "PRAD para recuperação das APPs e surgências hídricas",
+          "status": "Concluída",
+          "concluida_em": "02/2026",
+          "nota": "PRAD Simplificado elaborado: 3 pontos avaliados; surgências intermitentes nos pontos 1 e 2 com plantio de cerca de 1.500 mudas nativas; ponto 3 por regeneração natural com manejo.",
+          "documentos": [
+            {
+              "titulo": "PRAD – Fazenda Água Fria",
+              "arquivo": "docs/prad_fazenda_agua_fria.pdf"
+            },
+            {
+              "titulo": "Apresentação do PRAD (Santo Antônio e Água Fria)",
+              "arquivo": "docs/apresentacao_prad_santo_antonio_agua_fria.pdf"
+            }
+          ]
         }
       ]
     },
