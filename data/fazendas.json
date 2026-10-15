@@ -44,6 +44,17 @@
               "arquivo": "docs/apresentacao_prad_santo_antonio_agua_fria.pdf"
             }
           ]
+        },
+        {
+          "item": "Execução do PRAD",
+          "status": "Em andamento",
+          "nota": "Implantação das ações de recuperação pelo proprietário, com monitoramento semestral pelo responsável técnico durante 3 anos.",
+          "documentos": [
+            {
+              "titulo": "PRAD – Fazenda Santo Antônio",
+              "arquivo": "docs/prad_fazenda_santo_antonio.pdf"
+            }
+          ]
         }
       ]
     },
@@ -120,6 +131,17 @@
             {
               "titulo": "Apresentação do PRAD (Santo Antônio e Água Fria)",
               "arquivo": "docs/apresentacao_prad_santo_antonio_agua_fria.pdf"
+            }
+          ]
+        },
+        {
+          "item": "Execução do PRAD",
+          "status": "Em andamento",
+          "nota": "Implantação das ações de recuperação pelo proprietário, com monitoramento semestral pelo responsável técnico durante 3 anos.",
+          "documentos": [
+            {
+              "titulo": "PRAD – Fazenda Água Fria",
+              "arquivo": "docs/prad_fazenda_agua_fria.pdf"
             }
           ]
         }
